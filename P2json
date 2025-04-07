@@ -15,10 +15,10 @@
   {  
     "id": 2,  
     "imagen": "images/imagen2.jpeg",  
-    "titulo": "Sudadera Crema de Florecitas",  
-    "descripcion": "Sudadera moderna con diseño de crema y estampado de flores.",  
+    "titulo": "Sudadera Crema 4TUNE star",  
+    "descripcion": "Sudadera moderna con letras y diseño vintage.",  
     "precio": 34.99,  
-    "categoria": "Mujer",  
+    "categoria": "Hombre",  
     "colores": ["azul/blanco", "rojo/negro"],  
     "tallas": ["M", "L", "XL"],  
     "destacado": false,  
@@ -34,40 +34,22 @@
     "categoria": "Mujer",  
     "colores": ["gris", "negro", "azul"],  
     "tallas": ["XS", "S", "M", "L"],  
-
     "destacado": true,  
-
     "stock": 12  
-
   },  
 
- 
-
-  {  
-
+  { 
     "id": 4,  
-
     "imagen": "images/imagen4.jpeg",  
-
     "titulo": "Sudadera con Flores Azules",  
-
     "descripcion": "Sudadera elegante con color crema y estampado de flores.",  
-
     "precio": 45.99,  
-
     "categoria": "Mujer",  
-
     "colores": ["negro", "beige"],  
-
     "tallas": ["S", "M", "L"],  
-
     "destacado": false,  
-
     "stock": 5  
-
   },  
-
- 
 
   {  
     "id": 5,  
@@ -85,10 +67,10 @@
   {  
     "id": 6,  
     "imagen": "images/imagen6.jpeg",  
-    "titulo": "Sudadera con Estampado",  
-    "descripcion": "Sudadera con estampado artístico y bolsillo.",  
+    "titulo": "Sudadera Ghosts",  
+    "descripcion": "Sudadera con estampado artístico y bolsillos.",  
     "precio": 37.50,  
-    "categoria": "urban",  
+    "categoria": "Hombre",  
     "colores": ["negro", "blanco"],  
     "tallas": ["S", "M", "L"],  
     "destacado": false, 
