@@ -1,0 +1,22 @@
+// main.js
+
+let config;
+let data;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. Cargar configuración desde YAML
+  config = await loadConfig();
+
+  // 2. Cargar datos desde JSON
+  data = await loadData();
+
+  // 3. Aplicar configuración visual (tema, idioma, etc.)
+  applyConfig(config);
+
+  // 4. Renderizar los elementos
+  renderCards(data);
+
+  // 5. Inicializar filtros, botones y enrutamiento
+  setupEventListeners();
+  setupRouter();
+});
