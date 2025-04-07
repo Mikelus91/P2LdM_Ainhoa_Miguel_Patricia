@@ -1,0 +1,28 @@
+body { 
+    font-family: 'verdana'; 
+    background-color: #ede5adec; 
+  } 
+
+  /* Header */ 
+
+  header { 
+    background: linear-gradient(90deg, #f3eba7, #a49d77); 
+  } 
+
+  /* Tarjetas */ 
+
+  .card { 
+    box-shadow: 0 4px 8px rgba(181, 157, 110, 0.655); 
+    transition: transform 0.2s; 
+  } 
+
+  .card:hover { 
+    transform: scale(1.05); 
+  } 
+
+  /* Footer */ 
+
+  footer { 
+    background: #62686d; 
+    color: #aaa; 
+  } 
