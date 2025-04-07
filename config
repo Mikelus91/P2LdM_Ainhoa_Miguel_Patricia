@@ -1,0 +1,15 @@
+async function loadConfig() {
+    const response = await fetch("config.yaml");
+    const yamlText = await response.text();
+    return jsyaml.load(yamlText);
+  }
+  
+  function applyConfig(config) {
+    document.body.classList.add(config.theme === "dark" ? "bg-dark text-white" : "bg-light text-dark");
+  
+    if (config.language === "es") {
+      document.getElementById("viewToggle").textContent = "Cambiar Vista";
+    } else {
+      document.getElementById("viewToggle").textContent = "Toggle View";
+    }
+  }
