@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPDOWN - Tienda de Sudaderas</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CDN para js-yaml -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-3">
+    <div class="container">
+      <h1>UPDOWN</h1>
+      <p class="lead">Tu tienda de sudaderas</p>
+      
+      <!-- Selector de tema visual -->
+      <div class="form-check form-switch d-flex justify-content-center">
+        <input class="form-check-input" type="checkbox" id="themeSwitch">
+        <label class="form-check-label ms-2" for="themeSwitch">Modo oscuro</label>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">UPDOWN</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#coleccion">Colección</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+        
+        <!-- Filtros -->
+        <div class="ms-auto d-flex">
+          <select id="filtro-categoria" class="form-select me-2">
+            <option value="">Todas las categorías</option>
+          </select>
+          
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary vista-btn" data-vista="grid">
+              <i class="bi bi-grid"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary vista-btn" data-vista="list">
+              <i class="bi bi-list-ul"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container my-5" id="main-content">
+    <!-- Contenedor para los productos -->
+    <div id="contenedor-productos" class="row"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      <p>© 2025 UPDOWN. Todos los derechos reservados.</p>
+      <!-- Selector de idioma -->
+      <select id="selector-idioma" class="form-select w-auto mx-auto">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  
+  <!-- Script propio -->
+  <script src="P2js.js" type="module"></script>
+</body>
+</html>
