@@ -1,5 +1,5 @@
 async function loadConfig() {
-    const response = await fetch("config.yaml");
+    const response = await fetch("P2yaml.yaml");
     const yamlText = await response.text();
     return jsyaml.load(yamlText);
   }
