@@ -1,125 +1,129 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const productos = await cargarProductos();
-    const productosNormalizados = normalizarProductos(productos);
-    mostrarProductos(productosNormalizados);
-    configurarEventos();
-  } catch (error) {
-    console.error('Error:', error);
-    mostrarError('No se pudieron cargar los productos. Verifica la consola para más detalles.');
-  }
-});
+document.addEventListener('DOMContentLoaded', async () => {      
 
-// Función para cargar productos desde JSON
-async function cargarProductos() {
-  try {
-    const response = await fetch('P2json.json');
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('Error al cargar productos:', error);
-    throw error;
-  }
-}
+    try {  
+      const productos = await cargarProductos();  
+      const productosNormalizados = normalizarProductos(productos);  
+      mostrarProductos(productosNormalizados);  
+      configurarEventos();  
+    } catch (error) {  
+      console.error('Error:', error);  
+      mostrarError('No se pudieron cargar los productos. Verifica la consola para más detalles.');  
+    }  
+  });  
 
-// Normaliza las rutas de imágenes y datos de productos
-function normalizarProductos(productos) {
-  return productos.map(producto => {
-    let imagenPath = producto.imagen;
+  // Función para cargar productos desde JSON    
+  async function cargarProductos() {  
+    try {  
+      const response = await fetch('P2json.json');  
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);  
+      return await response.json();  
+    } catch (error) {  
+      console.error('Error al cargar productos:', error);  
+      throw error;  
+    } 
+  }  
 
-    // Si la ruta no empieza con 'images/' ni es URL, prepender carpeta
-    if (!imagenPath.startsWith('images/') && !imagenPath.startsWith('http')) {
-      imagenPath = `images/${imagenPath}`;
-    }
+  // Normaliza las rutas de imágenes y datos de productos  
+  function normalizarProductos(productos) {  
+    return productos.map(producto => {  
+      let imagenPath = producto.imagen;  
 
-    return {
-      ...producto,
-      imagen: imagenPath,
-      categoria: producto.categoria || 'sin-categoria',
-      precio: producto.precio ? `€${producto.precio.toFixed(2)}` : '€0.00'
-    };
-  });
-}
+      // Si la ruta no empieza con 'images/' ni es URL, prepender carpeta    
+      if (!imagenPath.startsWith('images/') && !imagenPath.startsWith('http')) {  
+        imagenPath = `images/${imagenPath}`;  
+      }  
 
-// Muestra los productos en el DOM
-function mostrarProductos(productos) {
-  console.log('Productos a mostrar:', productos);
-  const contenedor = document.getElementById('contenedor-productos');
-  if (!contenedor) {
-    console.error('No se encontró el contenedor de productos');
-    return;
-  }
+      return {  
+        ...producto,  
+        imagen: imagenPath,  
+        categoria: producto.categoria || 'sin-categoria',  
+        precio: producto.precio ? `€${producto.precio.toFixed(2)}` : '€0.00'  
+      };  
+    });  
+  }  
 
-  contenedor.innerHTML = '';
+  // Muestra los productos en el DOM    
+  function mostrarProductos(productos) {  
+    console.log('Productos a mostrar:', productos);  
+    const contenedor = document.getElementById('contenedor-productos');  
+    if (!contenedor) {  
+      console.error('No se encontró el contenedor de productos');  
+      return;  
+    }  
 
-  productos.forEach(producto => {
-    const col = document.createElement('div');
-    col.className = 'col-sm-6 col-md-4 mb-4';
+    contenedor.innerHTML = '';    
 
-    col.innerHTML = `
-      <div class="card h-100">
-        <img src="${producto.imagen}" 
-             class="card-img-top product-image" 
-             alt="${producto.titulo}"
-             data-id="${producto.id}"
-             onerror="this.onerror=null; this.src='images/placeholder.jpg';"
-             style="height: 200px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title">${producto.titulo}</h5>
-          <p class="card-text">${producto.descripcion}</p>
-          <p class="text-primary fw-bold">${producto.precio}</p>
-          <div class="d-flex justify-content-between">
-            <button class="btn btn-primary btn-sm ver-detalle" data-id="${producto.id}">
-              Ver detalles
-            </button>
-            <span class="badge bg-secondary">${producto.categoria}</span>
-          </div>
-        </div>
-      </div>
-    `;
+    productos.forEach(producto => {  
 
-    contenedor.appendChild(col);
-  });
-}
+      const col = document.createElement('div');  
 
-// Configura los eventos interactivos
-function configurarEventos() {
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('ver-detalle')) {
-      const id = e.target.dataset.id;
-      mostrarDetalleProducto(id);
-    }
-  });
+      col.className = 'col-sm-6 col-md-4 mb-4';  
 
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('product-image')) {
-      const id = e.target.dataset.id;
-      mostrarDetalleProducto(id);
-    }
-  });
-}
+      col.innerHTML = `   
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4"> 
+        <div class="card h-100" style="width: 400px;">  
+            <img src="${producto.imagen}"   
+                class="card-img-top product-image"   
+                alt="${producto.titulo}"  
+                data-tallas="${producto.tallas}"  
+                onerror="this.onerror=null; this.src='images/placeholder.jpg';"  
+                style="height: 200px; width: 100%; object-fit: cover;">  
+            <div class="card-body">  
+            <h5 class="card-title">${producto.titulo}</h5>  
+            <p class="card-text">${producto.descripcion}</p>  
+            <p class="text-primary fw-bold">${producto.precio}</p>  
+            <div class="d-flex justify-content-between">  
+                <button class="btn btn-primary btn-sm ver-detalle" data-tallas="${producto.tallas}">  
+                Ver detalles  
+                </button>  
+                <span class="badge bg-secondary">${producto.categoria}</span>  
+            </div>  
+            </div>  
+        </div> 
+        </div> 
+      `;  
 
-// Muestra el detalle de un producto (puedes implementar un modal)
-function mostrarDetalleProducto(id) {
-  console.log(`Mostrando detalles del producto ${id}`);
-  alert(`Detalles del producto ID: ${id}`);
-}
+      contenedor.appendChild(col);  
+    });  
+  }  
 
-// Muestra mensajes de error
-function mostrarError(mensaje) {
-  const contenedor = document.getElementById('contenedor-productos') || document.body;
-  contenedor.innerHTML = `
-    <div class="alert alert-danger">
-      <h4>Error</h4>
-      <p>${mensaje}</p>
-      <p>Por favor verifica:</p>
-      <ul>
-        <li>Que el archivo JSON tenga la estructura correcta</li>
-        <li>Que las imágenes existan en la carpeta /images</li>
-        <li>Que estés usando un servidor local (no abriendo el HTML directamente)</li>
-      </ul>
-    </div>
-  `;
-}
+  // Configura los eventos interactivos  
+  function configurarEventos() { 
+    document.addEventListener('click', (e) => {  
+      if (e.target.classList.contains('ver-detalle')) {  
+        const tallas = e.target.dataset.tallas;  
+        mostrarDetalleProducto(tallas);  
+      }  
+    });  
 
-console.log('Script de productos cargado correctamente');
+    document.addEventListener('click', (e) => {  
+      if (e.target.classList.contains('product-image')) {  
+        const tallas = e.target.dataset.tallas;  
+        mostrarDetalleProducto(tallas);  
+      }  
+    });  
+  }  
+
+  // Muestra el detalle de un producto (puedes implementar un modal)  
+  function mostrarDetalleProducto(tallas) {  
+    console.log(`Mostrando detalles del producto ${tallas}`);  
+    alert(`Tallas disponibles: ${tallas}`);  
+  }  
+
+  // Muestra mensajes de error   
+  function mostrarError(mensaje) {  
+    const contenedor = document.getElementById('contenedor-productos') || document.body;  
+    contenedor.innerHTML = `  
+      <div class="alert alert-danger">  
+        <h4>Error</h4>  
+        <p>${mensaje}</p>  
+        <p>Por favor verifica:</p>  
+        <ul>  
+          <li>Que el archivo JSON tenga la estructura correcta</li>  
+          <li>Que las imágenes existan en la carpeta /images</li>  
+          <li>Que estés usando un servidor local (no abriendo el HTML directamente)</li>  
+        </ul>  
+      </div>  
+    `;  
+  }  
+  console.log('Script de productos cargado correctamente'); 
