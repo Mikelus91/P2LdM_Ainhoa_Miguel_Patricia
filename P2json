@@ -1,0 +1,97 @@
+[  
+  {  
+    "id": 1,  
+    "imagen": "images/imagen1.jpg",  
+    "titulo": "Sudadera Rosa Chocolate Chips Cookies",  
+    "descripcion": "Sudadera de algodón oversize con capucha y bolsillo canguro.",  
+    "precio": 39.99,  
+    "categoria": "Mujer",  
+    "colores": ["negro", "gris"],  
+    "tallas": ["S", "M", "L", "XL"],  
+    "destacado": true,  
+    "stock": 15  
+  },  
+
+  {  
+    "id": 2,  
+    "imagen": "images/imagen2.jpeg",  
+    "titulo": "Sudadera Crema de Florecitas",  
+    "descripcion": "Sudadera moderna con diseño de crema y estampado de flores.",  
+    "precio": 34.99,  
+    "categoria": "Mujer",  
+    "colores": ["azul/blanco", "rojo/negro"],  
+    "tallas": ["M", "L", "XL"],  
+    "destacado": false,  
+    "stock": 8  
+  },  
+
+  {  
+    "id": 3,  
+    "imagen": "images/imagen3.jpeg",  
+    "titulo": "Sudadera con Capucha Flower Heart",  
+    "descripcion": "Sudadera deportiva con capucha ajustable y cordones.",  
+    "precio": 42.50,  
+    "categoria": "Mujer",  
+    "colores": ["gris", "negro", "azul"],  
+    "tallas": ["XS", "S", "M", "L"],  
+
+    "destacado": true,  
+
+    "stock": 12  
+
+  },  
+
+ 
+
+  {  
+
+    "id": 4,  
+
+    "imagen": "images/imagen4.jpeg",  
+
+    "titulo": "Sudadera con Flores Azules",  
+
+    "descripcion": "Sudadera elegante con color crema y estampado de flores.",  
+
+    "precio": 45.99,  
+
+    "categoria": "Mujer",  
+
+    "colores": ["negro", "beige"],  
+
+    "tallas": ["S", "M", "L"],  
+
+    "destacado": false,  
+
+    "stock": 5  
+
+  },  
+
+ 
+
+  {  
+    "id": 5,  
+    "imagen": "images/imagen5.jpeg",  
+    "titulo": "Sudadera Básica Vintage",  
+    "descripcion": "Sudadera clásica de cierre de cuello y tejido suave.",  
+    "precio": 29.99,  
+    "categoria": "Hombre",  
+    "colores": ["blanco", "gris", "azul marino"],  
+    "tallas": ["XS", "S", "M", "L", "XL"],  
+    "destacado": true,  
+    "stock": 20  
+  },  
+
+  {  
+    "id": 6,  
+    "imagen": "images/imagen6.jpeg",  
+    "titulo": "Sudadera con Estampado",  
+    "descripcion": "Sudadera con estampado artístico y bolsillo.",  
+    "precio": 37.50,  
+    "categoria": "urban",  
+    "colores": ["negro", "blanco"],  
+    "tallas": ["S", "M", "L"],  
+    "destacado": false, 
+    "stock": 10  
+  }  
+] 
