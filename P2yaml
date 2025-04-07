@@ -1,0 +1,19 @@
+# Configuración de la interfaz
+ui:
+  tema: "claro"  # claro/oscuro
+  elementos_por_pagina: 6
+  mostrar_imagenes: true
+  animaciones: "fade"  # fade/slide/none
+  vista_default: "grid"  # grid/list
+
+# Configuración de la tienda
+tienda:
+  moneda: "€"
+  idioma: "es"
+  habilitar_filtros: true
+  mostrar_stock: false
+
+# Configuración avanzada
+avanzado:
+  cargar_lazy: true
+  mostrar_logs: false
