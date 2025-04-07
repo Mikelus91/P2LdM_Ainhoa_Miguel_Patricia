@@ -1,0 +1,9 @@
+function filterByCategory(category) {
+    const filtered = category === "all" ? data : data.filter(item => item.category === category);
+    renderCards(filtered);
+  }
+
+  function toggleView() {
+    currentView = currentView === "cards" ? "list" : "cards";
+    renderCards(data);
+  }
