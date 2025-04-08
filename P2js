@@ -1,55 +1,108 @@
-document.addEventListener('DOMContentLoaded', async () => {      
+document.addEventListener('DOMContentLoaded', async () => {  
+
+     
 
     try {  
+
       const productos = await cargarProductos();  
+
       const productosNormalizados = normalizarProductos(productos);  
+
       mostrarProductos(productosNormalizados);  
+
       configurarEventos();  
+
     } catch (error) {  
+
       console.error('Error:', error);  
+
       mostrarError('No se pudieron cargar los productos. Verifica la consola para más detalles.');  
+
     }  
+
   });  
 
+ 
+
   // Función para cargar productos desde JSON    
+
   async function cargarProductos() {  
+
     try {  
+
       const response = await fetch('P2json.json');  
+
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);  
+
       return await response.json();  
+
     } catch (error) {  
+
       console.error('Error al cargar productos:', error);  
+
       throw error;  
+
     } 
+
   }  
+
+ 
 
   // Normaliza las rutas de imágenes y datos de productos  
+
   function normalizarProductos(productos) {  
+
     return productos.map(producto => {  
+
       let imagenPath = producto.imagen;  
 
+ 
+
       // Si la ruta no empieza con 'images/' ni es URL, prepender carpeta    
+
       if (!imagenPath.startsWith('images/') && !imagenPath.startsWith('http')) {  
+
         imagenPath = `images/${imagenPath}`;  
+
       }  
 
+   
+
       return {  
+
         ...producto,  
+
         imagen: imagenPath,  
+
         categoria: producto.categoria || 'sin-categoria',  
+
         precio: producto.precio ? `€${producto.precio.toFixed(2)}` : '€0.00'  
+
       };  
+
     });  
+
   }  
 
+ 
+
   // Muestra los productos en el DOM    
+
   function mostrarProductos(productos) {  
+
     console.log('Productos a mostrar:', productos);  
+
     const contenedor = document.getElementById('contenedor-productos');  
+
     if (!contenedor) {  
+
       console.error('No se encontró el contenedor de productos');  
+
       return;  
+
     }  
+
+ 
 
     contenedor.innerHTML = '';    
 
@@ -59,71 +112,240 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       col.className = 'col-sm-6 col-md-4 mb-4';  
 
+ 
+
       col.innerHTML = `   
+
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4"> 
+
         <div class="card h-100" style="width: 400px;">  
+
             <img src="${producto.imagen}"   
+
                 class="card-img-top product-image"   
+
                 alt="${producto.titulo}"  
+
                 data-tallas="${producto.tallas}"  
+
                 onerror="this.onerror=null; this.src='images/placeholder.jpg';"  
+
                 style="height: 200px; width: 100%; object-fit: cover;">  
+
             <div class="card-body">  
+
             <h5 class="card-title">${producto.titulo}</h5>  
+
             <p class="card-text">${producto.descripcion}</p>  
+
             <p class="text-primary fw-bold">${producto.precio}</p>  
+
             <div class="d-flex justify-content-between">  
+
                 <button class="btn btn-primary btn-sm ver-detalle" data-tallas="${producto.tallas}">  
+
                 Ver detalles  
+
                 </button>  
+
                 <span class="badge bg-secondary">${producto.categoria}</span>  
+
             </div>  
+
             </div>  
+
         </div> 
+
         </div> 
+
+ 
+
       `;  
 
+ 
+
       contenedor.appendChild(col);  
+
     });  
+
   }  
+
+   
 
   // Configura los eventos interactivos  
+
   function configurarEventos() { 
-    document.addEventListener('click', (e) => {  
-      if (e.target.classList.contains('ver-detalle')) {  
-        const tallas = e.target.dataset.tallas;  
-        mostrarDetalleProducto(tallas);  
-      }  
-    });  
 
     document.addEventListener('click', (e) => {  
-      if (e.target.classList.contains('product-image')) {  
+
+      if (e.target.classList.contains('ver-detalle')) {  
+
         const tallas = e.target.dataset.tallas;  
+
         mostrarDetalleProducto(tallas);  
+
       }  
+
     });  
+
+   
+
+    document.addEventListener('click', (e) => {  
+
+      if (e.target.classList.contains('product-image')) {  
+
+        const tallas = e.target.dataset.tallas;  
+
+        mostrarDetalleProducto(tallas);  
+
+      }  
+
+    });  
+
   }  
+
+   
 
   // Muestra el detalle de un producto (puedes implementar un modal)  
+
   function mostrarDetalleProducto(tallas) {  
+
     console.log(`Mostrando detalles del producto ${tallas}`);  
+
     alert(`Tallas disponibles: ${tallas}`);  
+
   }  
 
+ 
+
   // Muestra mensajes de error   
+
   function mostrarError(mensaje) {  
+
     const contenedor = document.getElementById('contenedor-productos') || document.body;  
+
     contenedor.innerHTML = `  
+
       <div class="alert alert-danger">  
+
         <h4>Error</h4>  
+
         <p>${mensaje}</p>  
+
         <p>Por favor verifica:</p>  
+
         <ul>  
+
           <li>Que el archivo JSON tenga la estructura correcta</li>  
+
           <li>Que las imágenes existan en la carpeta /images</li>  
+
           <li>Que estés usando un servidor local (no abriendo el HTML directamente)</li>  
+
         </ul>  
+
       </div>  
+
     `;  
+
   }  
+
+ 
+
+// Cambiar tema oscuro 
+
+document.getElementById("boton-tema").addEventListener("click", () => { 
+
+  document.body.classList.toggle("oscuro"); 
+
+}); 
+
+ 
+
+// Cambiar vistas entre lista y tarjetas 
+
+document.getElementById("viewToggle").addEventListener("click", () => { 
+
+  const nuevaVista = document.body.classList.contains("vista-tarjetas") ? "lista" : "tarjetas"; 
+
+  cambiarVista(nuevaVista); 
+
+}); 
+
+ 
+
+ 
+
+// Filtrar elementos por categoría 
+
+document.getElementById("filtro").addEventListener("change", (e) => { 
+
+  const categoria = e.target.value; 
+
+  const elementos = document.querySelectorAll(".elemento"); 
+
+  elementos.forEach(el => { 
+
+    el.style.display = categoria === "" || el.dataset.categoria === categoria ? "block": "none"; 
+
+  }); 
+
+}); 
+
+ 
+
+// Cambiar idioma 
+
+document.getElementById("selector-idioma").addEventListener("change", (e) => { 
+
+  const idioma = e.target.value; 
+
+  alert(`Idioma cambiado a: ${idioma}`); // Puedes implementar lógica más compleja aquí 
+
+}); 
+
+ 
+
+// Cargar configuraciones desde YAML 
+
+async function cargarConfiguracion() { 
+
+  const response = await fetch('data/P2yaml.yaml'); 
+
+  const text = await response.text(); 
+
+  const config = jsyaml.load(text); 
+
+ 
+
+  if (config.temaVisual === "oscuro") { 
+
+    document.body.classList.add("oscuro"); 
+
+  } 
+
+  document.getElementById("contenedor").className = config.vista || "vista-lista"; 
+
+  const filtro = document.getElementById("filtro"); 
+
+  filtro.value = config.categoria || ""; 
+
+  filtro.dispatchEvent(new Event("change")); 
+
+} 
+
+cargarConfiguracion(); 
+
+ 
+
+function cambiarVista(vista) { 
+
+  document.body.classList.toggle("vista-tarjetas", vista === "tarjetas"); 
+
+  document.body.classList.toggle("vista-lista", vista === "lista"); 
+
+} 
+
+ 
+
   console.log('Script de productos cargado correctamente'); 
