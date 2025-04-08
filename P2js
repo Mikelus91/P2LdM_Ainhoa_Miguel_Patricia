@@ -1,130 +1,166 @@
-document.addEventListener('DOMContentLoaded', async () => { 
+document.addEventListener('DOMContentLoaded', () => { 
 
-  try { 
-    const productos = await cargarProductos();   
-    const productosNormalizados = normalizarProductos(productos);   
-    mostrarProductos(productosNormalizados);  // Muestra los productos inicialmente 
-    configurarEventos(productosNormalizados);  // Configura los eventos para el filtrado y cambio de tema 
-  } catch (error) { 
-    console.error('Error:', error); 
-    mostrarError('No se pudieron cargar los productos. Verifica la consola para más detalles.'); 
-  } 
-}); 
-
-// Función para cargar productos desde JSON   
-
-async function cargarProductos() { 
-
-  try { 
-    const response = await fetch('P2json.json'); 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); 
-    return await response.json(); 
-  } catch (error) { 
-    console.error('Error al cargar productos:', error); 
-    throw error; 
-  } 
-} 
-
-// Normaliza los productos 
-function normalizarProductos(productos) { 
-  return productos.map(producto => { 
-    let imagenPath = producto.imagen; 
-
-    if (!imagenPath.startsWith('images/') && !imagenPath.startsWith('http')) { 
-      imagenPath = `images/${imagenPath}`; 
-    } 
-
-    return { 
-      ...producto, 
-      imagen: imagenPath, 
-      categoria: producto.categoria || 'sin-categoria', 
-      precio: producto.precio ? `€${producto.precio.toFixed(2)}` : '€0.00' 
-    }; 
+  // Cargar los productos y configurar los eventos una vez el DOM esté listo 
+  cargarProductos().then(productos => { 
+    const productosNormalizados = normalizarProductos(productos); 
+    mostrarProductosGrid(productosNormalizados);  // Inicialmente mostramos los productos en formato grid 
+    configurarEventos(productosNormalizados);  // Configuramos los eventos (filtros, vistas, tema) 
+  }).catch(error => { 
+    console.error("Error al cargar los productos:", error); 
   }); 
-} 
 
-// Muestra los productos en el DOM 
+  // Cargar los productos desde un archivo JSON 
+  async function cargarProductos() { 
 
-function mostrarProductos(productos) { 
-  const contenedor = document.getElementById('contenedor-productos'); 
-  if (!contenedor) { 
-    console.error('No se encontró el contenedor de productos'); 
-    return; 
+    try { 
+      const response = await fetch('P2json.json');  // Cambia la ruta si es necesario 
+      if (!response.ok) throw new Error(`Error al cargar productos: ${response.status}`); 
+      return await response.json(); 
+    } catch (error) { 
+      console.error('Error al cargar los productos:', error); 
+      throw error; 
+    } 
   } 
 
-  contenedor.innerHTML = ''; 
+  // Normaliza los datos de los productos para asegurar que tengan un formato consistente 
 
-  productos.forEach(producto => { 
-    const col = document.createElement('div'); 
-    col.className = 'col-sm-6 col-md-4 mb-4'; 
-    col.innerHTML = ` 
-      <div class="col-sm-6 col-md-4 col-lg-3 mb-4"> 
-        <div class="card h-100" style="width: 400px;"> 
-          <img src="${producto.imagen}" class="card-img-top product-image" alt="${producto.titulo}" onerror="this.onerror=null; this.src='images/placeholder.jpg';" style="height: 200px; width: 100%; object-fit: cover;"> 
+  function normalizarProductos(productos) { 
+    return productos.map(producto => { 
+      let imagenPath = producto.imagen; 
+      if (!imagenPath.startsWith('images/') && !imagenPath.startsWith('http')) { 
+        imagenPath = `images/${imagenPath}`; 
+      } 
 
+      return { 
+
+        ...producto, 
+        imagen: imagenPath, 
+        categoria: producto.categoria || 'sin-categoria', 
+        precio: producto.precio ? `€${producto.precio.toFixed(2)}` : '€0.00' 
+      }; 
+    }); 
+  } 
+
+  // Muestra los productos en formato grid 
+
+  function mostrarProductosGrid(productos) { 
+    const contenedor = document.getElementById('contenedor-productos'); 
+    contenedor.innerHTML = '';  // Limpiar antes de cargar los productos 
+    productos.forEach(producto => { 
+      const col = document.createElement('div'); 
+      col.className = 'col-sm-6 col-md-4 mb-4';  // Establecemos el tamaño de las tarjetas 
+      col.innerHTML = ` 
+        <div class="card h-100"> 
+          <img src="${producto.imagen}" class="card-img-top" alt="${producto.titulo}" onerror="this.onerror=null; this.src='images/placeholder.jpg';"> 
           <div class="card-body"> 
             <h5 class="card-title">${producto.titulo}</h5> 
             <p class="card-text">${producto.descripcion}</p> 
-            <p class="text-primary fw-bold">${producto.precio}</p> 
-            <div class="d-flex justify-content-between"> 
-              <button class="btn btn-primary btn-sm ver-detalle" data-tallas="${producto.tallas}">Ver detalles</button> 
-              <span class="badge bg-secondary">${producto.categoria}</span> 
+            <p class="text-primary">${producto.precio}</p> 
+            <button class="btn btn-primary btn-sm w-100 mt-3 ver-detalles-btn" data-id="${producto.id}">Ver detalles</button> 
+            <div class="tallas mt-3" id="tallas-${producto.id}" style="display: none;"> 
+              <h6>Tallas disponibles:</h6> 
+              <ul> 
+                ${producto.tallas.map(talla => `<li>${talla}</li>`).join('')} 
+              </ul> 
             </div> 
           </div> 
         </div> 
-      </div> 
-    `; 
-    contenedor.appendChild(col); 
-  }); 
-} 
+      `; 
+      contenedor.appendChild(col); 
+    }); 
+  } 
 
-// Configura eventos para el filtrado y el cambio de tema 
-function configurarEventos(productos) { 
-  // Filtrado de productos 
-  document.getElementById('filtro').addEventListener('change', (event) => { 
-    const categoriaSeleccionada = event.target.value; 
-    const productosFiltrados = filtrarProductosPorCategoria(categoriaSeleccionada, productos); 
-    mostrarProductos(productosFiltrados);  // Muestra los productos filtrados 
-  }); 
+  // Muestra los productos en formato lista 
 
- 
+  function mostrarProductosLista(productos) { 
+    const contenedor = document.getElementById('contenedor-productos'); 
+    contenedor.innerHTML = '';  // Limpiar antes de cargar los productos 
+    productos.forEach(producto => { 
+      const item = document.createElement('div'); 
+      item.className = 'list-group-item d-flex justify-content-between align-items-center'; 
+      item.innerHTML = ` 
+        <div class="d-flex"> 
+          <img src="${producto.imagen}" alt="${producto.titulo}" class="img-thumbnail me-3" style="width: 80px; height: auto;"> 
+          <div> 
+            <h5 class="mb-1">${producto.titulo}</h5> 
+            <p class="mb-1">${producto.descripcion}</p> 
+            <small>${producto.precio}</small> 
+          </div> 
+        </div> 
+        <button class="btn btn-primary btn-sm ver-detalles-btn" data-id="${producto.id}">Ver detalles</button> 
+        <div class="tallas mt-3" id="tallas-${producto.id}" style="display: none;"> 
+          <h6>Tallas disponibles:</h6> 
+          <ul> 
+            ${producto.tallas.map(talla => `<li>${talla}</li>`).join('')} 
+          </ul> 
+        </div> 
+      `; 
+      contenedor.appendChild(item); 
+    }); 
+  } 
 
-  // Cambio de tema 
-  const botonTema = document.getElementById('boton-tema'); 
-  botonTema.addEventListener('click', () => { 
-    const body = document.querySelector('body'); 
-    const temaActual = body.getAttribute('data-bs-theme'); 
-    if (temaActual === 'light') { 
-      body.setAttribute('data-bs-theme', 'dark'); 
-    } else { 
-      body.setAttribute('data-bs-theme', 'light'); 
-    } 
-  }); 
+  // Configura los eventos para filtrar productos, cambiar vistas y cambiar tema 
 
- 
+  function configurarEventos(productos) { 
 
-  // Evento para el botón "Ver detalles" 
-  document.addEventListener('click', (e) => { 
-    if (e.target.classList.contains('ver-detalle')) { 
-      const tallas = e.target.getAttribute('data-tallas'); 
-      mostrarTallas(tallas); 
-    } 
-  }); 
-} 
+    // Filtrado de productos por categoría 
+    document.getElementById('filtro').addEventListener('change', (event) => { 
+      const categoriaSeleccionada = event.target.value; 
+      const productosFiltrados = filtrarProductosPorCategoria(categoriaSeleccionada, productos); 
+      mostrarProductosGrid(productosFiltrados);  // Mostrar en formato grid 
+    }); 
 
-// Muestra las tallas del producto 
-function mostrarTallas(tallas) { 
-  alert(`Tallas disponibles: ${tallas}`); 
-} 
+    // Cambio de vista a grid 
+    const botonVistaGrid = document.querySelector('[data-vista="grid"]'); 
+    botonVistaGrid.addEventListener('click', () => { 
+      mostrarProductosGrid(productos); 
+    }); 
 
-// Filtrar productos por categoría 
-function filtrarProductosPorCategoria(categoria, productos) { 
-  if (!categoria) return productos;  // Si no hay categoría seleccionada, mostrar todos los productos 
-  return productos.filter(producto => producto.categoria.toLowerCase() === categoria.toLowerCase()); 
-} 
+    // Cambio de vista a lista 
+    const botonVistaLista = document.querySelector('[data-vista="list"]'); 
+    botonVistaLista.addEventListener('click', () => { 
+      mostrarProductosLista(productos); 
+    }); 
 
-// Mostrar error si algo sale mal 
+    // Cambio de tema 
+    const botonTema = document.getElementById('boton-tema'); 
+    botonTema.addEventListener('click', () => { 
+      const body = document.querySelector('body'); 
+      const temaActual = body.getAttribute('data-bs-theme'); 
+      body.setAttribute('data-bs-theme', temaActual === 'light' ? 'dark' : 'light'); 
+    }); 
+
+    // Mostrar u ocultar tallas al hacer clic en "Ver detalles" 
+    document.addEventListener('click', (event) => { 
+      if (event.target.classList.contains('ver-detalles-btn')) { 
+        const idProducto = event.target.getAttribute('data-id'); 
+        const divTallas = document.getElementById(`tallas-${idProducto}`); 
+        const isVisible = divTallas.style.display === 'block'; 
+        divTallas.style.display = isVisible ? 'none' : 'block'; 
+      } 
+    }); 
+  } 
+
+  // Filtra los productos por categoría seleccionada 
+  function filtrarProductosPorCategoria(categoria, productos) { 
+    if (!categoria) return productos;  // Si no hay filtro, mostrar todos los productos 
+    return productos.filter(producto => producto.categoria.toLowerCase() === categoria.toLowerCase()); 
+  } 
+}); 
+
+// Muestra mensajes de error 
 function mostrarError(mensaje) { 
-  const contenedor = document.getElementById('contenedor-productos'); 
-  contenedor.innerHTML = `<p class="text-danger">${mensaje}</p>`; 
+  const contenedor = document.getElementById('contenedor-productos') || document.body; 
+  contenedor.innerHTML = ` 
+    <div class="alert alert-danger"> 
+      <h4>Error</h4> 
+      <p>${mensaje}</p> 
+      <p>Por favor verifica:</p> 
+      <ul> 
+        <li>Que el archivo JSON tenga la estructura correcta</li> 
+        <li>Que las imágenes existan en la carpeta /images</li> 
+        <li>Que estés usando un servidor local (no abriendo el HTML directamente)</li> 
+      </ul> 
+    </div> 
+  `; 
 } 
