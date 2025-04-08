@@ -1,118 +1,122 @@
-<!DOCTYPE html>  
+<!DOCTYPE html> 
+<html lang="es" data-bs-theme="light"> 
+<head> 
 
-<html lang="es" data-bs-theme="light">  
-<head> <meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>UPDOWN - Tienda de Sudaderas</title>  
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>UPDOWN - Tienda de Sudaderas</title> 
 
-<!-- Bootstrap CSS -->  
+    <!-- Bootstrap CSS --> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"> 
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">  
-<!-- CDN para js-yaml -->  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>  
+    <!-- CDN para js-yaml --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script> 
 
-<!-- Estilos propios -->  
+    <!-- Estilos propios --> 
+    <link rel="stylesheet" href="estilos.css"> 
+</head> 
+<body> 
 
-<link rel="stylesheet" href="estilos.css">  
-</head>  
-<body>  
+    <!-- Botones de configuración --> 
 
-<!-- Botones de configuración -->  
-<header class="bg-primary text-white text-center py-3">  
-<h1>UPDOWN</h1>  
+    <header class="bg-primary text-white text-center py-3"> 
+        <h1>UPDOWN</h1> 
+        <div> 
+            <button id="boton-tema" class="btn btn-secondary">Cambiar Tema</button> 
+        </div> 
+    </header> 
 
-<div>  
-<button id="boton-tema" class="btn btn-secondary">Cambiar Tema</button> <select id="filtro" class="form-select w-auto mx-auto mt-2">  
-<option value="">Todas las categorías</option>  
-<option value="categoria1">Categoría 1</option>  
-<option value="categoria2">Categoría 2</option>  
-</select>  
-</div>  
-</header>  
+    <!-- Navbar --> 
 
-<script src="script.js"></script>  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <div class="container"> 
+            <a class="navbar-brand" href="#inicio">UPDOWN</a> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> 
 
-<!-- Navbar -->  
-<nav class="navbar navbar-expand-lg navbar-light bg-light">  
-<div class="container">  
+                <span class="navbar-toggler-icon"></span> 
+            </button> 
 
-<a class="navbar-brand" href="#inicio">UPDOWN</a>  
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">  
+            <div class="collapse navbar-collapse" id="navbarNav"> 
+                <ul class="navbar-nav"> 
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="#coleccion">Colección</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li> 
+                </ul> 
+                <div class="ms-auto d-flex"> 
+                    <select id="filtro"> 
+                        <option value="">Todas las categorías</option> 
+                        <option value="Hombre">Hombre</option> 
+                        <option value="Mujer">Mujer</option> 
+                    </select> 
+                    <div class="btn-group" role="group"> 
+                        <button type="button" class="btn btn-outline-secondary vista-btn" data-vista="grid"> 
+                            <i class="bi bi-grid"></i> 
+                        </button> 
+                        <button type="button" class="btn btn-outline-secondary vista-btn" data-vista="list"> 
+                            <i class="bi bi-list-ul"></i> 
+                        </button> 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </nav> 
 
-<span class="navbar-toggler-icon"></span>  
-</button>  
+    <!-- Main Content --> 
 
-<div class="collapse navbar-collapse" id="navbarNav">  
-<ul class="navbar-nav">  
-<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li> <!-- Ahora "Inicio" no lleva a nada -->  
-<li class="nav-item"><a class="nav-link" href="#coleccion">Colección</a></li> <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li> </ul>  
+    <main class="container my-5" id="main-content"> 
+        <section id="coleccion" class="my-5"> 
+            <h2 class="text-center mb-4">Última Colección</h2> 
+            <div id="contenedor-productos" class="row"> 
 
-<!-- Filtros -->  
-<div class="ms-auto d-flex">  
-<select id="filtro-categoria" class="form-select me-2">  
-<option value="">Todas las categorías</option>  
-<option value="A">Categoría A</option>  
-<option value="B">Categoría B</option>  
-</select>  
-<div class="btn-group" role="group">  
-<button type="button" class="btn btn-outline-secondary vista-btn" data-vista="grid">  
-<i class="bi bi-grid"></i>  
-</button> <button type="button" class="btn btn-outline-secondary vista-btn" data-vista="list">  
-<i class="bi bi-list-ul"></i>  
-</button>  
-</div>  
-</div>  
-</div>  
-</div>  
-</nav>  
+                <!-- Aquí se cargarán los productos dinámicamente --> 
+            </div> 
+        </section> 
+    </main> 
 
-<!-- Main Content -->  
-<main class="container my-5" id="main-content">  
-<section id="coleccion" class="my-5">  
-<h2 class="text-center mb-4">Última Colección</h2>  
-<div id="contenedor-productos" class="row">  
-</div>  
-</section>  
-</main>  
-<!-- Sección de Contacto -->  
-<section id="contacto" class="container py-5">  
-<h2 class="text-center mb-4">Contacto</h2>  
-<p class="text-center">Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros.</p>  
-<!-- Formulario de contacto (opcional) -->  
-<div class="row justify-content-center">  
-<div class="col-md-6">  
-<form>  
-<div class="mb-3">  
-<label for="nombre" class="form-label">Nombre</label>  
-<input type="text" class="form-control" id="nombre" placeholder="Tu nombre"> </div>  
-<div class="mb-3">  
-<label for="email" class="form-label">Correo Electrónico</label>  
-<input type="email" class="form-control" id="email" placeholder="Tu correo"> </div>  
-<div class="mb-3">  
-<label for="mensaje" class="form-label">Mensaje</label>  
-<textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>  
-</div>  
-<button type="submit" class="btn btn-primary w-100">Enviar mensaje</button> </form>  
-</div>  
-</div>  
-</section>  
-<!-- Footer -->  
-<footer class="bg-dark text-white text-center py-3">  
-<div class="container">  
-<p>© 2025 UPDOWN. Todos los derechos reservados.</p>  
+ 
 
-<!-- Selector de idioma -->  
-<select id="selector-idioma" class="form-select w-auto mx-auto">  
-<option value="es">Español</option>  
-<option value="en">English</option>  
-</select>  
-</div>  
-</footer>  
-<!-- Bootstrap JS + Popper -->  
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>  
-<!-- Bootstrap Icons -->  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">  
-<!-- Script propio -->  
-<script src="P2js.js" type="module"></script>  
-</body>  
+    <!-- Sección de Contacto --> 
+
+    <section id="contacto" class="container py-5"> 
+        <h2 class="text-center mb-4">Contacto</h2> 
+        <p class="text-center">Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros :)</p> 
+        <div class="row justify-content-center"> 
+            <div class="col-md-6"> 
+                <form> 
+                    <div class="mb-3"> 
+                        <label for="nombre" class="form-label">Nombre</label> 
+                        <input type="text" class="form-control" id="nombre" placeholder="Tu nombre"> 
+                    </div> 
+                    <div class="mb-3"> 
+                        <label for="email" class="form-label">Correo Electrónico</label> 
+                        <input type="email" class="form-control" id="email" placeholder="Tu correo"> 
+                    </div> 
+                    <div class="mb-3"> 
+                        <label for="mensaje" class="form-label">Mensaje</label> 
+                        <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea> 
+                    </div> 
+                    <button type="submit" class="btn btn-primary w-100">Enviar mensaje</button> 
+                </form> 
+            </div> 
+        </div> 
+    </section> 
+
+    <!-- Footer --> 
+    <footer class="bg-dark text-white text-center py-3"> 
+        <div class="container"> 
+            <p>© 2025 UPDOWN. Todos los derechos reservados.</p> 
+            <select id="selector-idioma" class="form-select w-auto mx-auto"> 
+                <option value="es">Español</option> 
+                <option value="en">English</option> 
+            </select> 
+        </div> 
+    </footer> 
+
+    <!-- Bootstrap JS + Popper --> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> 
+    <!-- Bootstrap Icons --> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"> 
+    <!-- Script propio --> 
+    <script src="P2js.js" type="module"></script> 
+</body> 
 </html> 
