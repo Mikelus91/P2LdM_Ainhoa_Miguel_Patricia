@@ -1,81 +1,145 @@
 /* Header */  
-
   header {  
-
     background: linear-gradient(90deg, #f1c6e8, #f38bd7);  
-
   }  
 
+/* Estilos para el tema claro */ 
+[data-bs-theme="light"] { 
+  background-color: #f8f9fa; /* Fondo claro */ 
+  color: #212529; /* Texto oscuro */ 
+} 
+
+[data-bs-theme="light"] .navbar { 
+  background-color: #ffffff; /* Fondo de la barra de navegación */ 
+  color: #212529; /* Texto de la barra de navegación */ 
+} 
+
+[data-bs-theme="light"] .navbar .nav-link { 
+  color: #212529; /* Cambiar color de las fuentes del navbar a negro */ 
+} 
+
+/* Cambiar el color del texto "UPDOWN" */ 
+[data-bs-theme="light"] .navbar .navbar-brand { 
+  color: #212529; /* Texto negro para el logo en el tema claro */ 
+} 
+
+/* Estilos para el tema oscuro */ 
+[data-bs-theme="dark"] { 
+  background-color: #121212; /* Fondo oscuro */ 
+  color: #f8f9fa; /* Texto claro */ 
+} 
+
+[data-bs-theme="dark"] .navbar { 
+  background-color: #343a40; /* Fondo de la barra de navegación */ 
+  color: #f8f9fa; /* Texto de la barra de navegación */ 
+} 
+
+[data-bs-theme="dark"] .navbar .nav-link { 
+  color: #000000; /* Cambiar color de las fuentes del navbar a negro */ 
+} 
+
+/* Cambiar el color del texto "UPDOWN" */ 
+[data-bs-theme="dark"] .navbar .navbar-brand { 
+  color: #000000; /* Texto negro para el logo en el tema oscuro */ 
+} 
+
+[data-bs-theme="dark"] .card { 
+  background-color: #2d2d2d; /* Fondo de las tarjetas */ 
+  border: 1px solid #444; /* Borde de las tarjetas */ 
+} 
+
+[data-bs-theme="dark"] .btn { 
+  background-color: hwb(285 5% 23%); /* Color de los botones */ 
+  color: white; /* Color del texto de los botones */ 
+} 
+
+[data-bs-theme="dark"] .btn-outline-secondary { 
+  border-color: #fff; /* Borde de los botones */ 
+  color: white; /* Texto de los botones */ 
+} 
+
+[data-bs-theme="dark"] .card-img-top { 
+  filter: brightness(0.7); /* Ajusta el brillo de las imágenes en el tema oscuro */ 
+} 
+
+/* En modo lista, las tarjetas ocuparán toda la fila */ 
+.lista .col-12 { 
+  margin-bottom: 15px; 
+} 
+
+/* En modo grid, las tarjetas tendrán diferentes tamaños dependiendo de la pantalla */ 
+.grid .col-sm-6, 
+.grid .col-md-4 { 
+  margin-bottom: 15px; 
+} 
+
+/* Estilo de las tarjetas */ 
+.card { 
+  height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */ 
+  display: flex; 
+  flex-direction: column; /* Asegura que el contenido se apile verticalmente */ 
+} 
+
+.card-body { 
+  flex-grow: 1; /* Permite que el contenido dentro de la tarjeta crezca para llenar el espacio disponible */ 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; /* Espacio igual entre los elementos dentro de la tarjeta */ 
+} 
+
  
 
-  /* Estilos generales */ 
+.card-title, .card-text, .text-primary { 
 
-body.oscuro { 
-
-  background-color: #121212; 
-
-  color: white; 
+  margin-bottom: 10px; 
 
 } 
 
  
 
-body { 
-
-  background-color: white; 
-
-  color: black; 
-
+.card img { 
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho de la tarjeta */ 
+  height: 200px; /* Fija la altura de las imágenes */ 
+  object-fit: cover; /* Asegura que la imagen mantenga la proporción sin distorsionarse */ 
+  margin-bottom: 10px; /* Espacio entre la imagen y el contenido de la tarjeta */ 
+} 
+ 
+/* Estilo del botón 'Ver detalles' */ 
+.ver-detalles-btn { 
+  width: auto; /* Hace que el ancho del botón sea automáticamente ajustado */ 
+  margin-top: auto; /* Empuja el botón hacia el fondo de la tarjeta */ 
+  padding: 8px 16px; /* Ajusta el tamaño del botón */ 
+  font-size: 14px; /* Ajusta el tamaño de la fuente */ 
+  text-align: center; /* Centra el texto */ 
+  border-radius: 5px; /* Agrega bordes redondeados */ 
+  transition: background-color 0.3s ease; /* Añade transición al color de fondo */ 
 } 
 
- 
-
-/* Transiciones de animación */ 
-
-.fade-transition { 
-
-  animation: fade 1s ease-in-out; 
-
+/* Estilo de las listas de tallas */ 
+.tallas ul { 
+  padding-left: 20px; 
 } 
 
- 
-
-@keyframes fade { 
-
-  from { opacity: 0; } 
-
-  to { opacity: 1; } 
-
+.tallas li { 
+  list-style-type: disc; /* Añade un punto al inicio de cada talla */ 
+  padding-left: 5px; /* Ajuste para los puntos */ 
 } 
 
- 
-
-.slide-transition { 
-
-  animation: slide 1s ease-in-out; 
-
+/* Responsividad */ 
+@media (max-width: 768px) { 
+  .col-sm-6 { 
+    width: 100%; 
+  } 
 } 
 
- 
-
-@keyframes slide { 
-
-  from { transform: translateY(100%); } 
-
-  to { transform: translateY(0); } 
-
+@media (max-width: 576px) { 
+  .card { 
+    margin-bottom: 20px; /* Añadir espacio entre las tarjetas en pantallas pequeñas */ 
+  } 
 } 
-
- 
-
-   
 
   /* Footer */  
-
   footer {  
-
     background: #62686d;  
-
     color: #aaa;  
-
   } 
