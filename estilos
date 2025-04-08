@@ -1,28 +1,81 @@
+/* Header */  
+
+  header {  
+
+    background: linear-gradient(90deg, #f1c6e8, #f38bd7);  
+
+  }  
+
+ 
+
+  /* Estilos generales */ 
+
+body.oscuro { 
+
+  background-color: #121212; 
+
+  color: white; 
+
+} 
+
+ 
+
 body { 
-    font-family: 'verdana'; 
-    background-color: #ede5adec; 
-  } 
 
-  /* Header */ 
+  background-color: white; 
 
-  header { 
-    background: linear-gradient(90deg, #f3eba7, #a49d77); 
-  } 
+  color: black; 
 
-  /* Tarjetas */ 
+} 
 
-  .card { 
-    box-shadow: 0 4px 8px rgba(181, 157, 110, 0.655); 
-    transition: transform 0.2s; 
-  } 
+ 
 
-  .card:hover { 
-    transform: scale(1.05); 
-  } 
+/* Transiciones de animación */ 
 
-  /* Footer */ 
+.fade-transition { 
 
-  footer { 
-    background: #62686d; 
-    color: #aaa; 
+  animation: fade 1s ease-in-out; 
+
+} 
+
+ 
+
+@keyframes fade { 
+
+  from { opacity: 0; } 
+
+  to { opacity: 1; } 
+
+} 
+
+ 
+
+.slide-transition { 
+
+  animation: slide 1s ease-in-out; 
+
+} 
+
+ 
+
+@keyframes slide { 
+
+  from { transform: translateY(100%); } 
+
+  to { transform: translateY(0); } 
+
+} 
+
+ 
+
+   
+
+  /* Footer */  
+
+  footer {  
+
+    background: #62686d;  
+
+    color: #aaa;  
+
   } 
