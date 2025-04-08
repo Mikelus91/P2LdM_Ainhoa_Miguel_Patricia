@@ -21,6 +21,7 @@
 
     <header class="bg-primary text-white text-center py-3"> 
         <h1>UPDOWN</h1> 
+<p>Tienda de sudaderas</p>
         <div> 
             <button id="boton-tema" class="btn btn-secondary">Cambiar Tema</button> 
         </div> 
